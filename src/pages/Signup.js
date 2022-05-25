@@ -10,8 +10,12 @@ class Signup extends React.Component {
 
     initialValues = {
         firstName: '',
-        lastName: ''
+        lastName: '',
+        emailField: '',
+        pwsField: '',
     };
+
+    showMsg = '';
 
     validationSchema = Yup.object({
         firstName: Yup.string()
@@ -19,11 +23,16 @@ class Signup extends React.Component {
             .min(3, 'Logintud mímina requerida'),
         lastName: Yup.string()
             .required('Campo Requerido')
-            .min(3, 'Logintud mímina requerida')
+            .min(3, 'Logintud mímina requerida'),
+        emailField: Yup.string().email()
+            .required('Required Field'),
+        pwsField: Yup.string()
+            .required('Requerid Field')
     });
 
     _handleSubmit = async (values) => {
         console.log('Values From handle Submit: ', values);
+        this.showMsg = 'Login Succesfull';
     }
 
     render() {
@@ -32,9 +41,14 @@ class Signup extends React.Component {
                 <h1>Component Signup</h1>
                 {/* <img src={logo} className="App-logo" alt="logo" /> */}
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
+
+                <div>
+                    {this.showMsg.length > 0 ? this.showMsg : ''}
+                </div>
+
                 <header>
                     <Container>
                         <Formik
@@ -54,6 +68,16 @@ class Signup extends React.Component {
                                             placeholder="Last Name"
                                             type="text"
                                             name="lastName"
+                                        />
+                                        <InputField
+                                            placeholder="Email"
+                                            type="email"
+                                            name="emailField"
+                                        />
+                                        <InputField
+                                            placeholder="Password"
+                                            type="password"
+                                            name="pwsField"
                                         />
                                     </FormGroup>
                                     <Button>
